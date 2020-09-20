@@ -1,0 +1,80 @@
+import java.util.Iterator;
+import java.util.Scanner;
+
+//TODO: Fix add method. There must be an iterator for *each* linked list to traverse the contents of
+//the linked list. The reason for this is in the following case: poly1 has a higher exponent than poly2.
+//Then, add coeff of poly1 to the answer linked list. After, we must advance the iterator of
+//ONLY poly1 to the next node, and compare it to the same node we have at poly2.
+
+public class A1HintopoulosC {
+	public static void main(String[] args) throws Exception {
+		LinkedListPoly poly1 = new LinkedListPoly();
+		LinkedListPoly poly2 = new LinkedListPoly();
+		LinkedListPoly answer = new LinkedListPoly();
+		
+		poly1.addHead(5,3);
+		poly1.addTail(4,2);
+		poly1.addTail(9,1);
+		//printPoly(poly1);
+		poly2.addHead(2,5);
+		poly2.addTail(10,3);
+		poly2.addTail(10,2);
+		poly2.addTail(3,1);
+		//printPoly(poly2);
+		addPoly(poly1,poly2, answer);
+		printPoly(answer);
+		
+	}
+	
+	public static NodePoly addNodes(NodePoly poly1, NodePoly poly2, NodePoly answer) {
+		while(poly1.getNext() != null && poly2.getNext() != null) {
+			if(poly1.getPower() == poly2.getPower()) {
+				answer.setCoeff(poly1.getCoeff() + poly2.getCoeff());
+				answer.setPower(poly1.getPower());
+				System.out.println(answer.getCoeff() + "x^" + answer.getPower() + " ");
+			}
+			else if(poly1.getPower() < poly2.getPower()) {
+				answer.setCoeff(poly2.getPower());
+				answer.setPower(poly2.getPower());
+			}
+			else if(poly1.getPower() > poly2.getPower()) {
+				answer.setCoeff(poly1.getPower());
+				answer.setPower(poly1.getPower());
+			}
+		}
+		return answer;
+	}
+	
+	
+	public static void printPoly(LinkedListPoly poly) {
+		for(int i = 1; i < poly.size()+1; i++) {
+			System.out.print(poly.getCoeff(i)+ "x^" + poly.getPower(i) + " + ");
+		}
+		System.out.println("");
+	}
+	
+	public static LinkedListPoly addPoly(LinkedListPoly poly1, LinkedListPoly poly2, LinkedListPoly newPoly) {
+		while(poly1 != null && poly2 != null) {
+			if(poly1.getHead().getPower() == poly2.getHead().getPower()) {
+				newPoly.addTail(poly1.getHead().getCoeff() + poly2.getHead().getCoeff(), poly1.getHead().getPower());
+				poly1.getHead().setNext(poly1.getHead().getNext());
+				poly2.getHead().setNext(poly1.getHead().getNext());
+				//printPoly(newPoly);
+				
+			}
+			else if(poly1.getHead().getPower() > poly2.getHead().getPower()) {
+				newPoly.addTail(poly1.getHead().getCoeff(), poly1.getHead().getPower());
+				poly1.getHead().setNext(poly1.getHead().getNext());
+				//printPoly(newPoly);
+
+			}
+			else if(poly1.getHead().getPower() < poly2.getHead().getPower()) {
+				newPoly.addTail(poly2.getHead().getCoeff(), poly2.getHead().getPower());
+				poly2.getHead().setNext(poly2.getHead().getNext());
+				//printPoly(newPoly);
+			}
+		}
+		return newPoly;
+	}
+
+}

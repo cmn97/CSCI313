@@ -1,0 +1,97 @@
+// LINKED LIST
+public class LinkedList<T> {
+
+	   private Node<T> head, tail;
+	   private int size;
+
+	   public LinkedList() {
+	      head = tail = null;
+	      size = 0;
+	   }
+
+	   public int size() {
+	      return size;
+	   }
+
+	   public boolean isEmpty() {
+	      return size == 0;
+	   }
+
+	   public void addHead(T d) {
+	      Node<T> n = new Node<>(d, head);
+	      head = n;
+	      size++;
+	      if (tail == null)
+	         tail = head;
+	   }
+
+	   public void addTail(T d) {
+	      Node<T> n = new Node<>(d, null);
+	      if (tail == null)
+	         head = tail = n;
+	      else {
+	         tail.setNext(n);
+	         tail = n;
+	      }
+	      size++;
+	   }
+
+	   public T removeHead() throws Exception {
+	      if (head == null)
+	         throw new Exception("Empty List");
+	      Node<T> n = head;
+	      head = head.getNext();
+	      if (head == null)
+	         tail = head;
+	      size--;
+	      return n.getData();
+	   }
+
+
+	   public String toString() {
+	      String ans = "";
+	      Node<T> n = head;
+	      while (n != null) {
+	         ans += n.getData();
+	         ans += "-->";
+	         n = n.getNext();
+	      }
+	      return ans;
+	   }
+	   
+	   public void clear() {
+		   while (head!= null) {
+			   head = head.getNext();
+			   size--;
+		   }
+	   }
+	   
+	  public T get(int index) {
+	   Node<T> n = head;
+	   for(int i = 0; i < index; i++) {
+		   if(i == index-1) return n.getData();
+		   n = n.getNext();
+	   }
+	   return null;
+  }
+	   
+   public boolean contains(Object o) {
+	   Node<T> n = head;
+	   while(n != null) {
+		   if(n.getData() == o) return true;
+		   else n = n.getNext();
+	   }
+	   return false;
+	  }
+	  
+	public void remove(int index) {
+	   Node<T> n = head;
+	   int i = 0;
+	   while (i < index-1) {
+		   n = n.getNext();
+		   i++;
+	   }
+	   n.setNext(n.getNext().getNext());
+	   size--;
+   }
+}

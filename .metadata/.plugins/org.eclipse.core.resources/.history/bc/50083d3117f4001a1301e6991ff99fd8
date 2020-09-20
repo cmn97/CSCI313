@@ -1,0 +1,31 @@
+public class NodePoly<T> {
+	private int coeff, power;
+	private NodePoly next;
+	
+	NodePoly(int x, int y, NodePoly term) {
+		coeff = x;
+		power = y;
+		next = term;
+	}
+	
+	public int getCoeff() {
+		return coeff;
+	}
+	
+	public int getPower() {
+		return power;
+	}
+	
+	public NodePoly<T> getNext() {
+		return next;
+	}
+	
+	public void add(NodePoly poly1, NodePoly poly2, NodePoly answer) {
+		while(poly1.getNext() != null && poly2.getNext() != null) {
+			if(poly1.getPower() == poly2.getPower()) {
+				answer.set
+			}
+		}
+	}
+	
+}

@@ -1,0 +1,70 @@
+public class NodePoly {
+	private int coeff, power;
+	private NodePoly next;
+	
+	NodePoly() {
+		//coeff = null;
+		//power = null;
+		next = null;
+	}
+	
+	NodePoly(int x, int y, NodePoly term) {
+		coeff = x;
+		power = y;
+		next = term;
+	}
+	
+	public int getCoeff() {
+		return coeff;
+	}
+	
+	public int getPower() {
+		return power;
+	}
+	
+	public void setPower(int y) {
+		power = y;
+	}
+	
+	public void setCoeff(int x) {
+		coeff = x;
+	}
+	
+	public void setCoeffPower(int x, int y) {
+		coeff = x;
+		power = y;
+	}
+	
+	public NodePoly getNext() {
+		return next;
+	}
+	
+	public void setNext(NodePoly n) {
+		next = n;
+		//System.out.println(n.getCoeff() + "x^" + n.getPower());
+	}
+	
+	public void printNode() {
+		NodePoly temp = this;
+		while(temp.getNext() != null) {
+			temp = temp.getNext();
+			System.out.println(temp.getCoeff() + "x^" + temp.getPower() + " + ");
+			
+		}
+	}
+/*	
+	public void add(NodePoly poly1, NodePoly poly2, NodePoly answer) {
+		while(poly1.getNext() != null && poly2.getNext() != null) {
+			if(poly1.getPower() == poly2.getPower()) {
+				answer.set
+			}
+			if(poly1.getPower() < poly2.getPower()) {
+				
+			}
+			if(poly1.getPower() > poly2.getPower()) {
+				
+			}
+		}
+	}
+*/
+}

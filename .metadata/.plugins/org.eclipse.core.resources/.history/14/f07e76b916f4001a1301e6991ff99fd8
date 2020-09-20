@@ -1,0 +1,11 @@
+public class NodePoly<T> extends Node {
+	private int coeff, power;
+	Node next;
+	
+	NodePoly(int x, int y, Node term) {
+		coeff = x;
+		power = y;
+		next = term;
+	}
+	
+}

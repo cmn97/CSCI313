@@ -1,0 +1,17 @@
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class A1HintopoulosC {
+	public static void main(String[] args) throws Exception {
+		
+		
+	}
+	
+	public LinkedListPoly addPoly(LinkedListPoly poly1, LinkedListPoly poly2, LinkedListPoly newPoly) {
+		while(poly1 != null && poly2 != null) {
+			
+		}
+		return newPoly;
+	}
+	
+}

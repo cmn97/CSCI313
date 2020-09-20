@@ -1,0 +1,101 @@
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class A1HintopoulosC {
+	public static void main(String[] args) throws Exception {
+		LinkedListPoly poly1 = new LinkedListPoly();
+		LinkedListPoly poly2 = new LinkedListPoly();
+		LinkedListPoly answer = new LinkedListPoly();
+		
+		poly1.addHead(5,3);
+		poly1.addTail(4,2);
+		poly1.addTail(9,1);
+		//printPoly(poly1);
+		poly2.addHead(2,5);
+		poly2.addTail(10,3);
+		poly2.addTail(10,2);
+		poly2.addTail(3,1);
+		//printPoly(poly2);
+		addPoly(poly1,poly2, answer);
+		printPoly(answer);
+		
+/*
+		LinkedListPoly poly1 = new LinkedListPoly();
+		LinkedListPoly poly2 = new LinkedListPoly();
+		LinkedListPoly answ = new LinkedListPoly();
+		
+		poly1.addHead(5, 2);
+		poly1.addTail(4,1);
+		//poly1.addTail(2, 1);
+		poly2.addHead(-5, 2);
+		poly2.addTail(4, 1);
+		
+		System.out.println("Poly 1: ");
+		printPoly(poly1);
+		System.out.println("Poly 2: ");
+		printPoly(poly2);
+		
+		System.out.println(" addition -----");
+		addNodes(poly1.getTerm(1), poly2.getTerm(1), answ.getTerm(1));
+		//addPoly(poly1,poly2,answ);
+		printPoly(answ);
+*/
+	}
+	
+	public static NodePoly addNodes(NodePoly poly1, NodePoly poly2, NodePoly answer) {
+		while(poly1.getNext() != null && poly2.getNext() != null) {
+			if(poly1.getPower() == poly2.getPower()) {
+				answer.setCoeff(poly1.getCoeff() + poly2.getCoeff());
+				answer.setPower(poly1.getPower());
+				System.out.println(answer.getCoeff() + "x^" + answer.getPower() + " ");
+			}
+			else if(poly1.getPower() < poly2.getPower()) {
+				answer.setCoeff(poly2.getPower());
+				answer.setPower(poly2.getPower());
+			}
+			else if(poly1.getPower() > poly2.getPower()) {
+				answer.setCoeff(poly1.getPower());
+				answer.setPower(poly1.getPower());
+			}
+		}
+		return answer;
+	}
+	
+	
+	public static void printPoly(LinkedListPoly poly) {
+		for(int i = 1; i < poly.size()+1; i++) {
+			System.out.print(poly.getCoeff(i)+ "x^" + poly.getPower(i) + " + ");
+		}
+		System.out.println("");
+	}
+/*	
+	public static void addPoly(LinkedListPoly poly1, LinkedListPoly poly2, LinkedListPoly answ) {
+		while(poly1.isEmpty() != false && poly2.isEmpty() != false) {
+			for(int i = 1; i < poly1.size()+1; i++) {
+				addNodes(poly1.getTerm(i), poly2.getTerm(i), answ.getTerm(i));
+			}
+		}
+	}
+*/	
+	
+
+	public static LinkedListPoly addPoly(LinkedListPoly poly1, LinkedListPoly poly2, LinkedListPoly newPoly) {
+		int i = 1;
+		//while(poly1 != null && poly2 != null) {
+			if(poly1.getTerm(i).getPower() == poly2.getTerm(i).getPower()) {
+				newPoly.addTail(poly1.getCoeff(i) + poly2.getCoeff(i), poly1.getPower(i));
+				i++;
+			}
+			else if(poly1.getTerm(i).getPower() > poly2.getTerm(i).getPower()) {
+				newPoly.addTail(poly1.getCoeff(i), poly1.getPower(i));
+				i++;
+			}
+			else if(poly1.getTerm(i).getPower() < poly2.getTerm(i).getPower()) {
+				newPoly.addTail(poly2.getCoeff(i), poly2.getPower(i));
+				i++;
+			}
+		//}
+		return newPoly;
+	}
+
+}

@@ -1,0 +1,34 @@
+public class LinkedListPoly {
+	
+	private NodePoly head, tail;
+	private int size;
+	
+	public LinkedListPoly() {
+		head = tail = null;
+		size = 0;
+	}
+	
+	public int size() {
+		return size;
+	}
+	
+	public boolean isEmpty() {
+		return size == 0;
+	}
+	
+	public void addHead(int x, int y) {
+		NodePoly n = new NodePoly(x,y,head);
+		head = n;
+		size++;
+		if(tail == null) tail = head;
+	}
+	
+	public String get(int index) {
+		NodePoly n = head;
+		for(int i = 0; i < index; i++) {
+			if (i == index-1) return n.getCoeff() + ", " + n.getPower();
+			n = n.getNext();
+		}
+		return null;
+	}
+}

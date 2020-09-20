@@ -1,0 +1,56 @@
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class A1HintopoulosC {
+	public static void main(String[] args) throws Exception {
+		LinkedListPoly poly1 = new LinkedListPoly();
+		LinkedListPoly poly2 = new LinkedListPoly();
+		
+		poly1.addHead(5, 2);
+		poly1.addTail(4,3);
+		
+		System.out.println(poly1.getCoeff(1) + "x^" + poly1.getPower(1) + " + " + poly1.getCoeff(2) + "x^" + poly1.getPower(2));
+		printPoly(poly1);
+	}
+	
+	public NodePoly add(NodePoly poly1, NodePoly poly2, NodePoly answer) {
+		while(poly1.getNext() != null && poly2.getNext() != null) {
+			if(poly1.getPower() == poly2.getPower()) {
+				answer.setCoeff(poly1.getCoeff() + poly2.getCoeff());
+				answer.setPower(poly1.getPower());
+			}
+			else if(poly1.getPower() < poly2.getPower()) {
+				answer.setCoeff(poly2.getPower());
+				answer.setPower(poly2.getPower());
+			}
+			else if(poly1.getPower() > poly2.getPower()) {
+				answer.setCoeff(poly1.getPower());
+				answer.setPower(poly1.getPower());
+			}
+		}
+		return answer;
+	}
+	
+	public static void printPoly(LinkedListPoly poly) {
+		for(int i = 1; i < poly.size()+1; i++) {
+			System.out.print(poly.getCoeff(i)+ "x^" + poly.getPower(i) + " ");
+		}
+	}
+	
+/*
+	public LinkedListPoly addPoly(LinkedListPoly poly1, LinkedListPoly poly2, LinkedListPoly newPoly) {
+		while(poly1.isEmpty() != false && poly2.isEmpty() != false) {
+			if(poly1.getPower() == poly2.getPower()) {
+				answer.set
+			}
+			if(poly1.getPower() < poly2.getPower()) {
+				
+			}
+			if(poly1.getPower() > poly2.getPower()) {
+				
+			}
+		}
+		return newPoly;
+	}
+*/
+}
