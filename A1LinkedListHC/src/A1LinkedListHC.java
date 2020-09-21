@@ -2,11 +2,12 @@
  *  * Student:
  *   */
 
-// TODO: add function results in endless loop
-// add function adding random terms to the end
-// maybe something regarding checking if the iterators ns and nthis are null or not
+// TODO: Look over add() method and try to clean it up
+// ask prof if we can refactor code
+// ask someone: how do we return the elt of the middle element if the linked list
+// 			contains a cycle?
 public class A1LinkedListHC{
-   	public static void main(String argc[]){
+   	public static void main(String argc[]) throws Exception{
 		LinkedList<Integer> sl = new LinkedList<>();
 		PolynomialLinkedList sum = new PolynomialLinkedList();
 		PolynomialLinkedList prod = new PolynomialLinkedList();
@@ -86,12 +87,26 @@ class LinkedList<E>{
 		}
 		return temp;
 	}
-	public E midElement(){
-		//implement this method
-		return null; 
+	public E midElement() throws Exception{
+		int size = 0;
+		Node it = this.getNode(0);
+		while(it != null) {
+			if(this.detectLoop() == true) break;
+			size++;
+			it = it.getNext();
+		}
+		if (size % 2 == 0) return this.getNode(size/2).getElement();
+		else return this.getNode((size-1)/2).getElement();
 	}
-	public boolean detectLoop(){
-		//implement this method
+	public boolean detectLoop() throws Exception{
+		if(this.getNode(0) == null) return false;
+		Node prev = this.getNode(0);
+		Node next = prev.getNext();
+		while (prev != next) {
+			if (next == null || next.getNext() == null) return false;
+			prev = prev.getNext();
+			next = next.getNext().getNext();
+		}
 		return true; 
 	}
 }
