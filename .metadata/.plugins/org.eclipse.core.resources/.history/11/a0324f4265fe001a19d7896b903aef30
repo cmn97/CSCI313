@@ -37,9 +37,7 @@ public class A1LinkedListHC{
 		p3 = p1.add(p2);
 		p1 = new PolynomialLinkedList(3,2);
 		p1.append(4,10);
-		System.out.println("p1:");
 		p1.print();
-		System.out.println("--");
 		p2 = new PolynomialLinkedList(1,0);
 		p4 = p1.add(p2);
 		sum = p3.add(p4);
@@ -159,7 +157,7 @@ class PolynomialLinkedList{
 		
 		// REMOVE THIS LATER!!! --------------------------
 		public void append(int c, int e) {
-			if (first != null) {
+			if (first != last) {
 				PNode n = new PNode(c,e,null);
 				this.last.setNext(n);
 				this.last = n;

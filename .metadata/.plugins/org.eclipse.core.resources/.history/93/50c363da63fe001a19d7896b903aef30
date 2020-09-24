@@ -36,10 +36,6 @@ public class A1LinkedListHC{
 		p2 = new PolynomialLinkedList(3,2);
 		p3 = p1.add(p2);
 		p1 = new PolynomialLinkedList(3,2);
-		p1.append(4,10);
-		System.out.println("p1:");
-		p1.print();
-		System.out.println("--");
 		p2 = new PolynomialLinkedList(1,0);
 		p4 = p1.add(p2);
 		sum = p3.add(p4);
@@ -92,17 +88,7 @@ class LinkedList<E>{
 		return temp;
 	}
 	public E midElement() throws Exception{
-		Node prev = this.getNode(0);
-		Node next = prev.getNext();
-		if(head != null) {
-			while (next != null && next.getNext() != null) {
-				next = next.getNext().getNext();
-				prev = prev.getNext();
-			}
-		}
-		return (E) prev.getElement();
-		
-		/*int size = 0;
+		int size = 0;
 		Node it = this.getNode(0);
 		while(it != null) {
 			if(this.detectLoop() == true) break;
@@ -110,7 +96,7 @@ class LinkedList<E>{
 			it = it.getNext();
 		}
 		if (size % 2 == 0) return this.getNode(size/2).getElement();
-		else return this.getNode((size-1)/2).getElement(); */
+		else return this.getNode((size-1)/2).getElement();
 	}
 	public boolean detectLoop() throws Exception{
 		if(this.getNode(0) == null) return false;
@@ -156,17 +142,6 @@ class PolynomialLinkedList{
 			PNode tempn = new PNode(c, e);
 			first = last = tempn;
 		}
-		
-		// REMOVE THIS LATER!!! --------------------------
-		public void append(int c, int e) {
-			if (first != null) {
-				PNode n = new PNode(c,e,null);
-				this.last.setNext(n);
-				this.last = n;
-			}
-		}
-		//---------------------------------------------
-		
 		public void print(){
 			if (first == null){
 				System.out.println();

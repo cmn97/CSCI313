@@ -159,7 +159,7 @@ class PolynomialLinkedList{
 		
 		// REMOVE THIS LATER!!! --------------------------
 		public void append(int c, int e) {
-			if (first != null) {
+			if (first != last) {
 				PNode n = new PNode(c,e,null);
 				this.last.setNext(n);
 				this.last = n;
