@@ -1,0 +1,23 @@
+Fri Oct 9 2020
+Order Traversal
+add head to queue
+print head node from queue
+add head's children to queue in order
+print first child from queue
+add first child's child to queue
+continue...
+
+Pre order
+can use stack.
+get first child and go down to leaf node, then continue to second child down to leaf node, etc.
+linear time O(n) - master thm only if we divide by the base. but we are not.
+
+Post order
+Start at root
+post order root; go to first child 2; post order; 
+Basically get to the leaf node, then go backwards back up to the root.
+Once at the root again, go to the next subtree, then go to the leaf and work backwards.
+You want all the leafs first 
+
+
+Level order traversal for tree

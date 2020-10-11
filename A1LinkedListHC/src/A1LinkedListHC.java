@@ -1,11 +1,7 @@
 /**
- *  * Student:
+ *  * Student: Christina Hintopoulos
  *   */
 
-// TODO: Look over add() method and try to clean it up
-// ask prof if we can refactor code
-// ask someone: how do we return the elt of the middle element if the linked list
-// 			contains a cycle?
 public class A1LinkedListHC{
    	public static void main(String argc[]) throws Exception{
 		LinkedList<Integer> sl = new LinkedList<>();
@@ -36,10 +32,6 @@ public class A1LinkedListHC{
 		p2 = new PolynomialLinkedList(3,2);
 		p3 = p1.add(p2);
 		p1 = new PolynomialLinkedList(3,2);
-		p1.append(4,10);
-		System.out.println("p1:");
-		p1.print();
-		System.out.println("--");
 		p2 = new PolynomialLinkedList(1,0);
 		p4 = p1.add(p2);
 		sum = p3.add(p4);
@@ -96,21 +88,12 @@ class LinkedList<E>{
 		Node next = prev.getNext();
 		if(head != null) {
 			while (next != null && next.getNext() != null) {
-				next = next.getNext().getNext();
 				prev = prev.getNext();
+				next = next.getNext().getNext();
+				if (next.getNext() == null) return (E) prev.getNext().getElement();
 			}
 		}
 		return (E) prev.getElement();
-		
-		/*int size = 0;
-		Node it = this.getNode(0);
-		while(it != null) {
-			if(this.detectLoop() == true) break;
-			size++;
-			it = it.getNext();
-		}
-		if (size % 2 == 0) return this.getNode(size/2).getElement();
-		else return this.getNode((size-1)/2).getElement(); */
 	}
 	public boolean detectLoop() throws Exception{
 		if(this.getNode(0) == null) return false;
@@ -157,14 +140,14 @@ class PolynomialLinkedList{
 			first = last = tempn;
 		}
 		
-		// REMOVE THIS LATER!!! --------------------------
-		public void append(int c, int e) {
+		// Disregard --------------------------
+		/*public void append(int c, int e) {
 			if (first != null) {
 				PNode n = new PNode(c,e,null);
 				this.last.setNext(n);
 				this.last = n;
 			}
-		}
+		} */
 		//---------------------------------------------
 		
 		public void print(){
@@ -187,86 +170,84 @@ class PolynomialLinkedList{
 			}
 			System.out.println(ans);
 		}
-		public PolynomialLinkedList add(PolynomialLinkedList s){ // Must be in linear time
-			
+		public PolynomialLinkedList add(PolynomialLinkedList s){
 			PolynomialLinkedList sum = new PolynomialLinkedList();
-			PNode nthis = this.first;
-			PNode ns = s.first;
-			
-		while(nthis != null && ns != null) {
-			if (sum.first == null && sum.last == null) {
-				if(nthis.getExp() == ns.getExp()) {
-					PNode nsum = new PNode(nthis.getCoe() + ns.getCoe(), nthis.getExp(), null);
-					sum.first = sum.last = nsum;
-					nthis = nthis.getNext();
-					ns = ns.getNext();
-				}
-				else if(nthis.getExp() > ns.getExp()) {
-					PNode nsum = new PNode(nthis.getCoe(), nthis.getExp(), null);
-					sum.first = sum.last = nsum;
-					nthis = nthis.getNext();
-					//System.out.println("Appended term is: " + sum.last.coe + "x^" + sum.last.exp);
-				}
-				else if(nthis.getExp() < ns.getExp()) {
-					PNode nsum = new PNode(ns.getCoe(), ns.getExp(), null);
-					sum.first = sum.last = nsum;
-					ns = ns.getNext();
-				}
-				
-				if (nthis != null && ns != null) {
+			PNode nthis = this.first; // Node Iterator of this polynomial / p1.
+			PNode ns = s.first; // Node Iterator of s polynomial / p2.
+			while(nthis != null && ns != null) {
+				// If sum is empty, we put in a new first node.
+				if (sum.first == null && sum.last == null) {
 					if(nthis.getExp() == ns.getExp()) {
 						PNode nsum = new PNode(nthis.getCoe() + ns.getCoe(), nthis.getExp(), null);
-						sum.last.setNext(nsum);
-						sum.last = nsum;
+						sum.first = sum.last = nsum;
 						nthis = nthis.getNext();
 						ns = ns.getNext();
 					}
 					else if(nthis.getExp() > ns.getExp()) {
 						PNode nsum = new PNode(nthis.getCoe(), nthis.getExp(), null);
-						sum.last.setNext(nsum);
-						sum.last = nsum;
+						sum.first = sum.last = nsum;
 						nthis = nthis.getNext();
-						//System.out.println("Appended term is: " + sum.last.coe + "x^" + sum.last.exp);
 					}
 					else if(nthis.getExp() < ns.getExp()) {
 						PNode nsum = new PNode(ns.getCoe(), ns.getExp(), null);
-						sum.last.setNext(nsum);
-						sum.last = nsum;
+						sum.first = sum.last = nsum;
 						ns = ns.getNext();
+					}
+					// Extra check to ensure nthis and ns are not null.
+					if (nthis != null && ns != null) {
+						if(nthis.getExp() == ns.getExp()) {
+							PNode nsum = new PNode(nthis.getCoe() + ns.getCoe(), nthis.getExp(), null);
+							sum.last.setNext(nsum);
+							sum.last = nsum;
+							nthis = nthis.getNext();
+							ns = ns.getNext();
+						}
+						else if(nthis.getExp() > ns.getExp()) {
+							PNode nsum = new PNode(nthis.getCoe(), nthis.getExp(), null);
+							sum.last.setNext(nsum);
+							sum.last = nsum;
+							nthis = nthis.getNext();
+						}
+						else if(nthis.getExp() < ns.getExp()) {
+							PNode nsum = new PNode(ns.getCoe(), ns.getExp(), null);
+							sum.last.setNext(nsum);
+							sum.last = nsum;
+							ns = ns.getNext();
+						}
 					}
 				}
 			}
-		}
-		if (ns == null || nthis == null) {
-			while(ns != null) {
-				PNode nsum = new PNode(ns.getCoe(), ns.getExp(), null);
-				sum.last.setNext(nsum);
-				sum.last = nsum;
-				ns = ns.getNext();
-			}
-			while (nthis != null) {
-				PNode nsum = new PNode(nthis.getCoe(), nthis.getExp(), null);
-				sum.last.setNext(nsum);
-				sum.last = nsum;
-				nthis = nthis.getNext();
-			}
-		}
-			return sum;
-		}
+			
+			if (ns == null || nthis == null) {
+				// Append terms of ns when nthis is null.
+				while(ns != null) {
+					PNode nsum = new PNode(ns.getCoe(), ns.getExp(), null);
+					sum.last.setNext(nsum);
+					sum.last = nsum;
+					ns = ns.getNext();
+				}
+				// Append terms of nthis when ns is null.
+				while (nthis != null) {
+					PNode nsum = new PNode(nthis.getCoe(), nthis.getExp(), null);
+					sum.last.setNext(nsum);
+					sum.last = nsum;
+					nthis = nthis.getNext();
+				}
+			} 
+			return sum; 
+		} 
 		
 		public PolynomialLinkedList multiply(PolynomialLinkedList s){ // Use nested loops
 			PolynomialLinkedList product = new PolynomialLinkedList();
-			PolynomialLinkedList productTemp = new PolynomialLinkedList();
 			
-			PNode nthis = this.first;
-			PNode ns = s.first;
+			PNode nthis = this.first; // Node iterator of this polynomial
+			PNode ns = s.first; // Node iterator of parameter polynomial
 			
 			while(ns != null) {
-				productTemp.first = null;
-				productTemp.last = null;
 				nthis = this.first;
 				while(nthis != null) {
 					PNode tempNode = new PNode(nthis.getCoe() * ns.getCoe(), nthis.getExp() + ns.getExp());
+					// Check if product linked list is empty.
 					if(product.first == null) {
 						product.first = product.last = tempNode;
 					}
@@ -276,7 +257,6 @@ class PolynomialLinkedList{
 					}
 					nthis = nthis.getNext();
 				}
-				//product = product.add(productTemp);
 				ns = ns.getNext();
 			}
 			return product;
